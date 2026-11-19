@@ -1,0 +1,51 @@
+{
+  "format": "decor-constructor-static-v1",
+  "revision": "6cdb644509ee89d2",
+  "scenes": [
+    "classic-fir"
+  ],
+  "decorations": [
+    "ball-feather-white",
+    "ball-frosted-feather-white",
+    "ball-glitter-red",
+    "garland-green-03",
+    "icicle-twisted-clear",
+    "pinecone-gold-tips",
+    "ball-gold",
+    "ball-red",
+    "ball-pearl",
+    "star",
+    "bow",
+    "icicle"
+  ],
+  "files": {
+    "assets/favicon.svg": "7222e628912cbd574f7271154683b0e6e95d3e20a68c9b0afa240fed9f088abe",
+    "assets/tree-original.png": "bb363484f3bd11aefb63f90e600ef8a578b3c33e09371a0b87e9b8a87c5123a6",
+    "assets/decorations/ball-feather-white/cutout.png": "89234bbf826b4c532c6fc7ff8630ed477dd3baaacf73d13d0039293b1c7319fd",
+    "assets/decorations/ball-feather-white/thumbnail.png": "da24443e7db878ebbebd48fa2762493a456656451cb147e3679e57bdd701377b",
+    "assets/decorations/ball-frosted-feather-white/cutout.png": "bf1d92d59ed5f3971229d4d5dc7fc05db04ef49d83246f259ad35346874f42bc",
+    "assets/decorations/ball-frosted-feather-white/thumbnail.png": "8d9d7a2777963b4d6bd9e3aa967871cebad8fc1a4eb4595c461ece35de489d2d",
+    "assets/decorations/ball-glitter-red/cutout.png": "106be905fd06e3dd5f5be99ea406b4f13021fab2bfdb67fece6a4e61a5fcc0bf",
+    "assets/decorations/ball-glitter-red/thumbnail.png": "316fe33378a4f8e0827cfd0a61042d331e908f20f7c1bf700476375ee8f94f71",
+    "assets/decorations/garland-green-03/cutout.png": "f3cc486d0ba2cddf350a1fc3a527c262d586614c29f331bee8a137f20554b3e5",
+    "assets/decorations/garland-green-03/thumbnail.png": "ed8733fc5a9c0b3960805d1d569cb7bc86c3441ab5de7caf7de76a53d9e73cf8",
+    "assets/decorations/icicle-twisted-clear/cutout.png": "84d7670009a5921f4814293644f3a988ccf5a5af94175b7bb86f5c78b4f81077",
+    "assets/decorations/icicle-twisted-clear/thumbnail.png": "80e07842898039fba1a2e741e7d7f39f2f3a3663bb2d110c26a83fb3db72b47e",
+    "assets/decorations/pinecone-gold-tips/cutout.png": "93e68f1305c98b93c4f8cc5a2fa69d6eb6d3f6b3d04acd1f6b9ba5204190fcc8",
+    "assets/decorations/pinecone-gold-tips/thumbnail.png": "ce8573616c38ba027751af0ccf78176000aa6bce28ec0b2995441cf2831ae1b1",
+    "assets/ornaments/ball-gold.svg": "a1c4efc92472764f3f9cac4700987c2cbad2499c777ab55e13fd4ebdc5055aee",
+    "assets/ornaments/ball-red.svg": "0a10436fc03093544a9e0569fbd39ab5885f88569e72fcb995098b6e6984c635",
+    "assets/ornaments/ball-pearl.svg": "9ed4fbd30deb26f444772253f793a6280c99b682c97b4fe972c7ed9c80ad9f97",
+    "assets/ornaments/star.svg": "4bd5dc79e2ef374896793089d37ddffedc1f41a0b95221b408a6944f0fe92c52",
+    "assets/ornaments/bow.svg": "77a57b758e63e8bee0f6d547e273bba5d8e02abc8bd38301f0ae8c9689a3da3a",
+    "assets/ornaments/icicle.svg": "d3293f619bba20de7106c39313759e73f9010c59c6cf2e0ca69ceac8bbafaefd",
+    "app.js": "efc21c929ca72fbce6bf30d2f770b8d11f492a57968149e6c749062e5eb7b311",
+    "geometry.js": "59f2da9aa21b134d9b3c8bf79d2d9f188df5b14664ac67dd8b0d7774e2a6cedf",
+    "styles.css": "e62fab206039a64bc22017c8c8099973a4dd7320a6ca848cbc989888fb4aa79e",
+    "config/catalog.js": "4db6da0a7175643d75440bed3b0a907c92529dcf0be0e125fcff507c31452822",
+    "index.html": "cc23c18173fa3ff65daebebeb886c3bfeed4b129abf6e98d56f45c789015fc92",
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".gitignore": "cf237c7aff44efbe6e502e645c3e06da03a69d7bdeb43392108ef3348143417e",
+    "README.md": "8681809f8f0fbc75151218ec7bfc2c2b4446ce945280a8eb4fe9c53310a24562"
+  }
+}

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#23483e">
+  <meta name="description" content="Конструктор декора: выбирайте сцену, размещайте украшения и сохраняйте проект в JSON.">
+  <title>Decor Studio — составьте свою композицию</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css?v=6cdb644509ee89d2">
+  <script src="config/catalog.js?v=6cdb644509ee89d2" defer></script>
+  <script src="geometry.js?v=6cdb644509ee89d2" defer></script>
+  <script src="app.js?v=6cdb644509ee89d2" defer></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3m-4 4 4-4 4 4M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM7 6v5m5-5v3m5-3v5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+    <symbol id="i-contour" viewBox="0 0 24 24"><path d="m12 2 4 6h-2l5 6h-3l5 6H3l5-6H5l5-6H8l4-6Z"/></symbol>
+  </defs></svg>
+
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Decor Studio, главная"><span class="brand-mark" aria-hidden="true">✳</span><span>decor<span class="brand-light"> studio</span></span><span class="beta">BETA</span></a>
+    <span class="header-description">Место для ваших идей</span>
+    <div class="header-actions">
+      <button class="button quiet" id="import-button" aria-label="Открыть проект"><svg class="icon"><use href="#i-upload"/></svg><span>Открыть проект</span></button>
+      <button class="button outlined" id="export-button" aria-label="Скачать JSON"><svg class="icon"><use href="#i-download"/></svg><span>Скачать JSON</span></button>
+    </div>
+    <input id="import-file" type="file" accept="application/json,.json" hidden>
+  </header>
+
+  <main class="app-layout">
+    <aside class="sidebar" aria-label="Библиотека украшений">
+      <div class="sidebar-main">
+        <div class="section-heading"><h1>Украшения</h1><span class="catalog-count" id="catalog-count"></span></div>
+        <p class="sidebar-description">Перетащите на сцену или нажмите</p>
+        <div class="category-tabs" role="group" aria-label="Категория украшений">
+          <button class="category-tab active" data-category="all" aria-pressed="true">Все</button>
+          <button class="category-tab" data-category="balls" aria-pressed="false">Шары</button>
+          <button class="category-tab" data-category="accents" aria-pressed="false">Акценты</button>
+          <button class="category-tab" data-category="icicles" aria-pressed="false">Сосульки</button>
+          <button class="category-tab" data-category="interior-garlands" aria-pressed="false">Интерьер</button>
+        </div>
+        <div class="ball-size-picker" id="ball-size-picker">
+          <span class="ball-size-label">Размер однотонных шаров</span>
+          <div class="ball-size-options" id="ball-size-options" role="group" aria-label="Размер новых шаров"></div>
+        </div>
+        <div class="decoration-grid" id="decoration-grid"></div>
+        <div class="palette-note"><span class="note-plus">+</span><p>Каждое украшение можно<br>добавлять несколько раз</p></div>
+      </div>
+
+      <section class="tree-settings" aria-labelledby="tree-settings-title">
+        <div class="settings-title"><svg class="icon"><use href="#i-ruler"/></svg><h2 id="tree-settings-title">Размеры объекта</h2></div>
+        <div class="size-fields">
+          <label for="tree-height">Высота<div class="number-field"><input id="tree-height" type="number" min="30" max="1000" step="1" value="210"><span>см</span></div></label>
+          <label for="tree-width">Ширина<div class="number-field"><input id="tree-width" type="number" min="20" max="600" step="1" value="130"><span>см</span></div></label>
+        </div>
+        <p class="settings-note">Украшения масштабируются<br>относительно этих размеров.</p>
+      </section>
+      <div class="generate-area"><button class="button primary generate-button" id="generate-button"><svg class="icon"><use href="#i-sparkles"/></svg>Сгенерировать</button><p>Готовая композиция в PNG</p></div>
+    </aside>
+
+    <section class="workspace" aria-label="Конструктор декора">
+      <div class="workspace-heading"><div><div class="eyebrow">ВАША КОМПОЗИЦИЯ</div><h2>Ваша версия.</h2><p>Немного деталей — и совсем другое настроение.</p></div><span class="scale-badge"><svg class="icon"><use href="#i-ruler"/></svg>Реальный масштаб</span></div>
+      <div class="canvas-shell">
+        <div class="canvas-toolbar">
+          <div class="canvas-label"><svg class="icon"><use href="#i-image"/></svg><select id="scene-select" class="scene-select" aria-label="Выбрать сцену"></select></div>
+          <div class="canvas-tools">
+            <button class="tool-button randomize-button" id="randomize-button" aria-label="Рандомизируй" title="Создать случайную композицию в области размещения" disabled><svg class="icon"><use href="#i-sparkles"/></svg><span>Рандомизируй</span></button>
+            <span class="toolbar-divider"></span>
+            <button class="tool-button" id="contour-button" aria-label="Показать область размещения" aria-pressed="true" title="Показать или скрыть область размещения"><svg class="icon"><use href="#i-contour"/></svg><span>Контур</span></button>
+            <button class="tool-button" id="dimensions-button" aria-label="Показать размеры объекта" aria-pressed="false" title="Показать размеры объекта"><svg class="icon"><use href="#i-ruler"/></svg><span>Размеры</span></button>
+            <button class="tool-button" id="clear-button" aria-label="Очистить холст" title="Очистить холст" disabled><svg class="icon"><use href="#i-trash"/></svg><span>Очистить</span></button>
+          </div>
+        </div>
+        <section class="random-settings" aria-label="Настройки случайной расстановки">
+          <div class="random-settings-fields">
+            <label class="random-field" for="random-source"><span>Украшения</span><select id="random-source"><option value="catalog">Из каталога</option><option value="current">С холста</option></select></label>
+            <div class="random-quantity" id="random-quantity">
+              <label class="random-field" for="random-count-mode"><span>Количество</span><select id="random-count-mode"><option value="fixed">Задать</option><option value="random">Случайное</option></select></label>
+              <label class="random-field random-number" id="random-fixed-field" for="random-count"><span>Штук</span><input id="random-count" type="number" min="1" max="200" step="1" value="20" required aria-describedby="random-settings-error"></label>
+              <div class="random-range" id="random-range" hidden>
+                <label class="random-field random-number" for="random-min"><span>От</span><input id="random-min" type="number" min="1" max="200" step="1" value="10" required aria-describedby="random-settings-error"></label>
+                <label class="random-field random-number" for="random-max"><span>До</span><input id="random-max" type="number" min="1" max="200" step="1" value="40" required aria-describedby="random-settings-error"></label>
+              </div>
+            </div>
+          </div>
+          <p class="random-settings-hint" id="random-settings-hint">Создаст новую композицию из всего каталога. Украшения могут повторяться.</p>
+          <p class="ball-count-summary" id="ball-count-summary" hidden></p>
+          <p class="random-settings-error" id="random-settings-error" role="alert" hidden></p>
+        </section>
+        <div class="canvas-area" id="canvas-area">
+          <div class="photo-wrap" id="photo-wrap">
+            <div class="scene show-contour" id="scene" tabindex="0" role="group" aria-label="Сцена. Перетащите сюда украшение.">
+              <img id="tree-image" class="tree-image" src="assets/tree-original.png" alt="Зелёная ель с подарками на сером фоне" draggable="false">
+              <div class="tree-bounds" id="tree-bounds" aria-hidden="true"><span class="height-label" id="height-label">210 см</span><span class="width-label" id="width-label">130 см</span></div>
+              <svg class="tree-contour" id="tree-contour" aria-hidden="true" preserveAspectRatio="none"><polygon class="contour-shadow"/><polygon class="contour-line"/></svg>
+              <div id="ornament-layer" class="ornament-layer"></div>
+              <div class="drop-hint"><svg class="icon"><use href="#i-plus"/></svg><span>Отпустите украшение здесь</span></div>
+            </div>
+          </div>
+          <div class="canvas-hint" id="canvas-hint"><span class="hint-sparkle">✧</span>Перетащите первое украшение на сцену</div>
+          <div class="selection-toolbar" id="selection-toolbar" hidden>
+            <span id="selected-name"></span><span class="selection-divider"></span>
+            <label class="selected-size-label" id="selected-size-label" for="selected-ball-size" hidden>Размер<select id="selected-ball-size" aria-label="Размер выбранного шара"></select></label>
+            <label class="rotation-label" for="rotation">Поворот<input id="rotation" type="range" min="-180" max="180" step="5" value="0"><output id="rotation-value">0°</output></label>
+            <button class="icon-button" id="duplicate-button" title="Дублировать украшение" aria-label="Дублировать украшение"><svg class="icon"><use href="#i-copy"/></svg></button>
+            <button class="icon-button delete-button" id="delete-button" title="Удалить украшение (Delete)" aria-label="Удалить украшение"><svg class="icon"><use href="#i-trash"/></svg></button>
+          </div>
+        </div>
+        <div class="canvas-footer"><span><span class="count-dot" id="count-dot"></span><span id="placement-count">0 украшений</span></span><span id="save-status"><svg class="icon"><use href="#i-check"/></svg>Проект сохраняется в браузере</span></div>
+      </div>
+      <div class="workspace-footer"><span>Создавайте, сочетайте, пробуйте новое.</span><span>Выберите украшение, чтобы повернуть или удалить</span></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="result-dialog" class="result-dialog">
+    <div class="dialog-header"><div><span class="eyebrow">СОЗДАНО ВАМИ</span><h2>Ваша композиция готова</h2></div><button class="icon-button" id="close-result" aria-label="Закрыть"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div class="result-preview"><img id="result-image" alt="Готовая композиция с украшениями"></div>
+    <div class="result-actions"><button class="button outlined" id="result-json"><svg class="icon"><use href="#i-download"/></svg>Скачать JSON</button><button class="button primary" id="result-png"><svg class="icon"><use href="#i-download"/></svg>Скачать PNG</button></div>
+    <p class="result-note">PNG — готовое изображение. JSON — проект для дальнейшего редактирования.</p>
+  </dialog>
+</body>
+</html>
